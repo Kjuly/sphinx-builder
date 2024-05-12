@@ -1,4 +1,4 @@
-name: 'Sphinx Page Builder'
+name: 'Sphinx Builder'
 author: 'Kaijie Yu'
 description: |-
   Build Sphinx source files as static pages. Multi-languages can be
