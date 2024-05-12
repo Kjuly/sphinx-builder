@@ -3,10 +3,10 @@
 default_lang=$1
 mappings=$2
 
-printf 'Default Language: %s\nLanguages:\n%s\n' "$default_lang" "$mapping"
+printf 'Default Language: %s\nMappings:\n%s\n' "$default_lang" "$mappings"
 
 if [ -z "$mappings" ]; then
-  make html
+  sphinx-build -M html "src/$default_lang" "build" -D language="$default_lang"
   return
 fi
 
@@ -18,10 +18,5 @@ for mapping in $mappings; do
   echo
   echo "# Start building for $folder (lang: $lang) ..."
   echo
-
-  make -e \
-    SPHINXOPTS="-D language='$lang'" \
-    SOURCEDIR="./src/$folder" \
-    BUILDDIR="./build/$folder" \
-    html
+  sphinx-build -M html "src/$folder" "build/$folder" -D language="$lang"
 done
