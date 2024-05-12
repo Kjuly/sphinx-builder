@@ -21,4 +21,11 @@ for mapping in $mappings; do
 
   [ "$lang" = "$default_lang" ] && build_dir="build" || build_dir="build/$folder"
   sphinx-build -M html "src/$folder" "$build_dir" -D language="$lang"
+
+  if [ "$lang" = "$default_lang" ]; then
+    continue
+  fi
+  cp_dest="build/html/$folder"
+  [ -d "$cp_dest" ] && rm -rf "$cp_dest"
+  cp -rf "$build_dir/html" "$cp_dest"
 done
