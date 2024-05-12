@@ -18,5 +18,7 @@ for mapping in $mappings; do
   echo
   echo "# Start building for $folder (lang: $lang) ..."
   echo
-  sphinx-build -M html "src/$folder" "build/$folder" -D language="$lang"
+
+  [ "$lang" = "$default_lang" ] && build_dir="build" || build_dir="build/$folder"
+  sphinx-build -M html "src/$folder" "$build_dir" -D language="$lang"
 done
