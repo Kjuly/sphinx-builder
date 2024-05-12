@@ -1,0 +1,33 @@
+name: 'Sphinx Page Builder'
+author: 'Kaijie Yu'
+description: |-
+  Build Sphinx source files as static pages. Multi-languages can be
+  handled by providing langs.
+
+branding:
+  icon: 'box'
+  color: 'white'
+
+inputs:
+  default-lang:
+    description: |-
+      The default language, which will be placed under the build directory,
+      no subdirectory will be created. Default is 'en'.
+    required: false
+    default: 'en'
+  lang-mappings:
+    description: |-
+      Newline-separated list of folder & language mappings to build.
+      e.g.,
+        en:en
+        zh-Hans:zh_CN
+      If you don't provide one, will use Makefile's SOURCEDIR & BUILDDIR to determine.
+    required: false
+    default: ''
+
+runs:
+  using: docker
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.default-lang }}
+    - ${{ inputs.lang-mappings }}
