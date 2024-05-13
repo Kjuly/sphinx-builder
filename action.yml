@@ -9,13 +9,13 @@ branding:
   color: 'white'
 
 inputs:
-  default-lang:
+  default_lang:
     description: |-
       The default language, which will be placed under the build directory,
       no subdirectory will be created. Default is 'en'.
     required: false
     default: 'en'
-  lang-mappings:
+  lang_mappings:
     description: |-
       Newline-separated list of folder & language mappings to build.
       e.g.,
@@ -29,5 +29,5 @@ runs:
   using: docker
   image: 'Dockerfile'
   args:
-    - ${{ inputs.default-lang }}
-    - ${{ inputs.lang-mappings }}
+    - ${{ inputs.default_lang }}
+    - ${{ inputs.lang_mappings }}
