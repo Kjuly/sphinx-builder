@@ -1,16 +1,18 @@
 #!/bin/sh
 
-default_lang=$1
-mappings=$2
+SOURCE_ROOT=$1
+BUILD_ROOT=$2
+default_lang=$3
+mappings=$4
 
 printf 'Default Language: %s\nMappings:\n%s\n' "$default_lang" "$mappings"
 
 if [ -z "$mappings" ]; then
-  sphinx-build -M html "src" "build" -D language="$default_lang"
+  sphinx-build -M html "$SOURCE_ROOT" "$BUILD_ROOT" -D language="$default_lang"
   return
 fi
 
-config_base_file="src/_conf.py"
+config_base_file="$SOURCE_ROOT/_conf.py"
 
 IFS="$(printf '\n\b')"
 for mapping in $mappings; do
@@ -18,8 +20,8 @@ for mapping in $mappings; do
   lang="${mapping##*:}"
 
   # Input & output dirs.
-  input_dir="src/$region"
-  [ "$lang" = "$default_lang" ] && output_dir="build" || output_dir="build/$region"
+  input_dir="$SOURCE_ROOT/$region"
+  [ "$lang" = "$default_lang" ] && output_dir="$BUILD_ROOT" || output_dir="$BUILD_ROOT/$region"
 
   # Setup conf.py file.
   config_override_file="$input_dir/_conf.py"
@@ -38,7 +40,7 @@ for mapping in $mappings; do
     continue
   fi
   # Migrate html outputs.
-  cp_dest="build/html/$region"
+  cp_dest="$BUILD_ROOT/html/$region"
   [ -d "$cp_dest" ] && rm -rf "$cp_dest"
   cp -rf "$output_dir/html" "$cp_dest"
 done
