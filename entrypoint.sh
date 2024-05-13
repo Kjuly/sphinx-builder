@@ -12,7 +12,7 @@ fi
 
 config_base_file="src/_conf.py"
 
-IFS=$'\n'
+IFS=$(printf '\n')
 for mapping in $mappings; do
   region="${mapping%%:*}"
   lang="${mapping##*:}"
