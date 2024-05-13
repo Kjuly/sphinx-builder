@@ -5,7 +5,7 @@ Github Action to build Sphinx source files as static pages.
 
 | Input | Default | Description
 | --- | --- | ---
-| source_root | docs/sources | Root directory of source to build.
+| source_root | docs/source | Root directory of source to build.
 | build_root | docs/build | Root directory for build output.
 | default_lang | en | The default language, which will be placed under the build directory, no subdirectory will be created.
 | lang_mappings | '' | Newline-separated list of folder & language mappings to build (refer to [Multiple languages](#multiple-languages). If you don't provide one, will use Makefile's SOURCEDIR & BUILDDIR to determine.
@@ -27,8 +27,11 @@ jobs:
 ```
 
 Folder structure:
-> /src  
-> /build
+```sh
+/docs
+    /source
+    /build
+```
 
 ### Multiple languages
 
@@ -42,28 +45,31 @@ with:
 ```
 
 Folder structure:
-> /src  
-> -- /en  
-> -- /zh-Hans  
-> /build  
+```sh
+/docs
+    /source
+        /en
+        /zh-Hans
+    /build
+```
 
 ## Share & Override Config File
 
 You can provide `_conf.py` to share and override `conf.py`. Below is a sample folder structure:
 
 ```sh
-/src  
+/source
     _conf.py  # Shared base config file.
 
-    /en  
-        _conf.py  # Override config file for "en".  
+    /en
+        _conf.py  # Override config file for "en".
         conf.py   # The final generated config file for "en", which will be updated for each build process.
         ...       #   You don't need to provide it manually.
 
-    /zh-Hans  
+    /zh-Hans
         conf.py   # No "_conf.py" provided at the same level, will use "conf.py" as it was.
         ...
-/build  
+/build
 ```
 
 ---

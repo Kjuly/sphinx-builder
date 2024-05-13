@@ -10,9 +10,9 @@ branding:
 
 inputs:
   source_root:
-    description: "Root directory of source to build, default: 'docs/sources'."
+    description: "Root directory of source to build, default: 'docs/source'."
     required: false
-    default: 'docs/sources'
+    default: 'docs/source'
   build_root:
     description: "Root directory for build output, default: 'docs/build'."
     required: false
