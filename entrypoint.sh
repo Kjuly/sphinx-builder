@@ -10,22 +10,35 @@ if [ -z "$mappings" ]; then
   return
 fi
 
+config_base_file="src/_conf.py"
+
 IFS=$'\n'
 for mapping in $mappings; do
-  folder="${mapping%%:*}"
+  region="${mapping%%:*}"
   lang="${mapping##*:}"
 
-  echo
-  echo "# Start building for $folder (lang: $lang) ..."
-  echo
+  # Input & output dirs.
+  input_dir="src/$region"
+  [ "$lang" = "$default_lang" ] && output_dir="build" || output_dir="build/$region"
 
-  [ "$lang" = "$default_lang" ] && build_dir="build" || build_dir="build/$folder"
-  sphinx-build -M html "src/$folder" "$build_dir" -D language="$lang"
+  # Setup conf.py file.
+  config_override_file="$input_dir/_conf.py"
+
+  if [ -f "$config_base_file" ] && [ -f "$config_override_file" ]; then
+    config_file="$input_dir/conf.py"
+    printf "\n# Setup %s ...\n" "$config_file"
+    cp -v "$config_base_file" "$config_file"
+    cat "$config_override_file" >> "$config_file"
+  fi
+
+  printf "\n# Start building for %s (lang: %s) ...\n" "$region" "$lang"
+  sphinx-build -M html "$input_dir" "$output_dir" -D language="$lang"
 
   if [ "$lang" = "$default_lang" ]; then
     continue
   fi
-  cp_dest="build/html/$folder"
+  # Migrate html outputs.
+  cp_dest="build/html/$region"
   [ -d "$cp_dest" ] && rm -rf "$cp_dest"
-  cp -rf "$build_dir/html" "$cp_dest"
+  cp -rf "$output_dir/html" "$cp_dest"
 done

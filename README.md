@@ -38,6 +38,25 @@ Folder structure:
 > -- /zh-Hans  
 > /build  
 
+## Share & Override Config File
+
+You can provide `_conf.py` to share and override `conf.py`. Below is a sample folder structure:
+
+```sh
+/src  
+    _conf.py  # Shared base config file.
+
+    /en  
+        _conf.py  # Override config file for "en".  
+        conf.py   # The final generated config file for "en", which will be updated for each build process.
+        ...       #   You don't need to provide it manually.
+
+    /zh-Hans  
+        conf.py   # No "_conf.py" provided at the same level, will use "conf.py" as it was.
+        ...
+/build  
+```
+
 ---
 
 The build page will be stored in `${{ github.workspace }}/build/html`.
