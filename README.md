@@ -28,9 +28,9 @@ jobs:
 
 Folder structure:
 ```sh
-/docs
-    /source
-    /build
+docs/
+    source/
+    build/
 ```
 
 ### Multiple languages
@@ -46,11 +46,11 @@ with:
 
 Folder structure:
 ```sh
-/docs
-    /source
-        /en
-        /zh-Hans
-    /build
+docs/
+    source/
+        en/
+        zh-Hans/
+    build/
 ```
 
 ## Share & Override Config File
@@ -58,18 +58,18 @@ Folder structure:
 You can provide `_conf.py` to share and override `conf.py`. Below is a sample folder structure:
 
 ```sh
-/source
+source/
     _conf.py  # Shared base config file.
 
-    /en
+    en/
         _conf.py  # Override config file for "en".
         conf.py   # The final generated config file for "en", which will be updated for each build process.
         ...       #   You don't need to provide it manually.
 
-    /zh-Hans
+    zh-Hans/
         conf.py   # No "_conf.py" provided at the same level, will use "conf.py" as it was.
         ...
-/build
+build/
 ```
 
 ---
