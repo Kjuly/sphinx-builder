@@ -5,6 +5,13 @@ BUILD_ROOT=$2
 default_lang=$3
 mappings=$4
 
+# Install extra dependencies if the requirements.txt file exits.
+requirements_file="$SOURCE_ROOT/requirements.txt"
+if [ -f "$requirements_file" ]; then
+  printf 'Install dependencies with %s ...', "$requirements_file"
+  pip install -r "$requirements_file"
+fi
+
 printf 'Default Language: %s\nMappings:\n%s\n' "$default_lang" "$mappings"
 
 if [ -z "$mappings" ]; then
