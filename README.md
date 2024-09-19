@@ -60,6 +60,7 @@ You can provide `_conf.py` to share and override `conf.py`. Below is a sample fo
 ```sh
 source/
     _conf.py  # Shared base config file.
+    requirements.txt # Optionally, you can install extra dependencies by adding this file with libs listed.
 
     en/
         _conf.py  # Override config file for "en".
